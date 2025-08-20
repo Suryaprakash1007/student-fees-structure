@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Login</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      height: 100vh;
+      background: linear-gradient(to right, #667eea, #764ba2);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .login-box {
+      background: white;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+      width: 350px;
+      text-align: center;
+    }
+    h2 {
+      margin-bottom: 25px;
+      color: #333;
+    }
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 15px;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 15px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      background: linear-gradient(to right, #ff416c, #ff4b2b);
+      color: white;
+      transition: 0.3s;
+    }
+    button:hover {
+      background: linear-gradient(to right, #e03e56, #ff2b2b);
+    }
+    .back-link {
+      display: block;
+      margin-top: 15px;
+      font-size: 14px;
+      color: #007bff;
+      text-decoration: none;
+    }
+    .back-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-box">
+    <h2>Admin Login</h2>
+    <form onsubmit="return loginAdmin()">
+      <input type="text" id="username" placeholder="Admin Username" required>
+      <input type="password" id="password" placeholder="Password" required>
+      <button type="submit">Login</button>
+    </form>
+    <a href="index.html" class="back-link">⬅ Back to Home</a>
+  </div>
+
+  <script>
+    function loginAdmin(){
+      let user = document.getElementById("username").value;
+      let pass = document.getElementById("password").value;
+
+      // Dummy login check (replace with backend later)
+      if(user === "admin" && pass === "1234"){
+        alert("Admin Login Successful!");
+        window.location.href = "admin-dashboard.html";
+        return false;
+      } else {
+        alert("Invalid Username or Password!");
+        return false;
+      }
+    }
+  </script>
+</body>
+</html>

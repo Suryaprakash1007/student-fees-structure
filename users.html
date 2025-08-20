@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Users List</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f9f9f9;
+    }
+    .box {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      width: 500px;
+      margin: auto;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+    th, td {
+      padding: 10px;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+    }
+    th {
+      background: #007bff;
+      color: white;
+    }
+    tr:hover { background: #f1f1f1; }
+    .delete-btn {
+      background: red;
+      color: white;
+      padding: 6px 12px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .delete-btn:hover { background: darkred; }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h2>Users List</h2>
+    <table id="usersTable">
+      <thead>
+        <tr>
+          <th>Username</th>
+          <th>Password</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  
+  <a href="admin-welcome.html" class="back-link">⬅ Back</a>
+</div>
+  <script>
+    function loadUsers(){
+      let users = JSON.parse(localStorage.getItem("students")) || [];
+      let tbody = document.querySelector("#usersTable tbody");
+      tbody.innerHTML = "";
+
+      users.forEach((u, i) => {
+        let row = `<tr>
+          <td>${u.username}</td>
+          <td>${u.password}</td>
+          <td><button class="delete-btn" onclick="deleteUser(${i})">Delete</button></td>
+        </tr>`;
+        tbody.innerHTML += row;
+      });
+    }
+
+    function deleteUser(index){
+      let users = JSON.parse(localStorage.getItem("students")) || [];
+      users.splice(index, 1);
+      localStorage.setItem("students", JSON.stringify(users));
+      loadUsers();
+    }
+
+    loadUsers();
+  </script>
+</body>
+</html>

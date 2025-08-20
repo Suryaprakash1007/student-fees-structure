@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Rejected Requests</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #ff9a9e, #fecfef);
+      padding: 40px;
+    }
+    .rejected-box {
+      background: white; padding: 20px; border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2); margin-bottom: 20px;
+    }
+    a { text-decoration: none; display: inline-block; margin-bottom: 20px; }
+  </style>
+</head>
+<body>
+  <h1>❌ Rejected Requests</h1>
+  <a href="admin-welcome.html">⬅ Back to Admin Menu</a>
+  <div id="rejected"></div>
+
+  <script>
+    function loadRejected(){
+      let rejected = JSON.parse(localStorage.getItem("rejected")) || [];
+      let container = document.getElementById("rejected");
+      container.innerHTML = "";
+
+      if(rejected.length === 0){
+        container.innerHTML = "<p>No Rejected Requests.</p>";
+        return;
+      }
+
+      rejected.forEach(req => {
+        let box = document.createElement("div");
+        box.className = "rejected-box";
+        box.innerHTML = `
+          <p><b>Name:</b> ${req.name}</p>
+          <p><b>Reg No:</b> ${req.regno}</p>
+          <p><b>Course:</b> ${req.course}</p>
+          <p><b>Department:</b> ${req.dept}</p>
+          <p><b>Reason:</b> ${req.reason}</p>
+          <p><b>Bonafide:</b> ${req.bonafide}</p>
+        `;
+        container.appendChild(box);
+      });
+    }
+
+    loadRejected();
+  </script>
+</body>
+</html>
