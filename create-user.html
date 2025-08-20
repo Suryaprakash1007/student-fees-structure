@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Create User</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f9f9f9;
+    }
+    .box {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      width: 400px;
+      margin: auto;
+      text-align: center;
+    }
+    input {
+      padding: 10px; width: 90%; margin: 10px 0;
+      border: 1px solid #ccc; border-radius: 6px;
+    }
+    button {
+      padding: 12px; width: 100%;
+      background: #007bff; color: white;
+      border: none; border-radius: 8px;
+      cursor: pointer; font-size: 16px;
+    }
+    button:hover { background: #0056b3; }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h2>Create Student User</h2>
+    <input type="number" id="newUser" placeholder="Reg No">
+    <input type="text" id="newPass" placeholder="DOB">
+    <button onclick="createUser()">Create</button>
+  
+  <a href="admin-welcome.html" class="back-link">⬅ Back</a>
+  </div>
+  <script>
+    function createUser(){
+      let user = document.getElementById("newUser").value;
+      let pass = document.getElementById("newPass").value;
+
+      if(user && pass){
+        let students = JSON.parse(localStorage.getItem("students")) || [];
+        students.push({username: user, password: pass});
+        localStorage.setItem("students", JSON.stringify(students));
+        alert("✅ User Created Successfully!");
+        document.getElementById("newUser").value = "";
+        document.getElementById("newPass").value = "";
+      } else {
+        alert("❌ Enter username and password!");
+      }
+    }
+  </script>
+</body>
+</html>

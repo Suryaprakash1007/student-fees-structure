@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Approved Requests</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #c9ffbf, #ffdde1);
+      padding: 40px;
+    }
+    .approved-box {
+      background: white; padding: 20px; border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2); margin-bottom: 20px;
+    }
+    a { text-decoration: none; display: inline-block; margin-bottom: 20px; }
+  </style>
+</head>
+<body>
+  <h1>✅ Approved Requests</h1>
+  <a href="admin-welcome.html">⬅ Back to Admin Menu</a>
+  <div id="approved"></div>
+
+  <script>
+    function loadApproved(){
+      let approved = JSON.parse(localStorage.getItem("approved")) || [];
+      let container = document.getElementById("approved");
+      container.innerHTML = "";
+
+      if(approved.length === 0){
+        container.innerHTML = "<p>No Approved Requests yet.</p>";
+        return;
+      }
+
+      approved.forEach(req => {
+        let box = document.createElement("div");
+        box.className = "approved-box";
+        box.innerHTML = `
+          <p><b>Name:</b> ${req.name}</p>
+          <p><b>Reg No:</b> ${req.regno}</p>
+          <p><b>Course:</b> ${req.course}</p>
+          <p><b>Department:</b> ${req.dept}</p>
+          <p><b>Reason:</b> ${req.reason}</p>
+          <p><b>Bonafide:</b> ${req.bonafide}</p>
+        `;
+        container.appendChild(box);
+      });
+    }
+
+    loadApproved();
+  </script>
+</body>
+</html>
