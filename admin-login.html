@@ -64,7 +64,7 @@
 <body>
   <div class="login-box">
     <h2>Admin Login</h2>
-    <form onsubmit="return loginAdmin()">
+    <form id="form">
       <input type="text" id="username" placeholder="Admin Username" required>
       <input type="password" id="password" placeholder="Password" required>
       <button type="submit">Login</button>
@@ -73,20 +73,40 @@
   </div>
 
   <script>
-    function loginAdmin(){
-      let user = document.getElementById("username").value;
-      let pass = document.getElementById("password").value;
+    document.getElementById('form').addEventListener('submit', async function(event) {
+            event.preventDefault(); // Prevent the form from submitting normally
 
-      // Dummy login check (replace with backend later)
-      if(user === "admin" && pass === "1234"){
-        alert("Admin Login Successful!");
-        window.location.href = "admin-dashboard.html";
-        return false;
-      } else {
-        alert("Invalid Username or Password!");
-        return false;
-      }
-    }
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // Here you can add your login logic, e.g., sending data to a server
+            console.log('Username:', username);
+            console.log('Password:', password);
+
+            const response =  await fetch('http://localhost:8080/admin/login',{
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username, password })
+            })
+
+            if(response.ok){
+                const data = await response.json();
+                console.log('Login successful:', data);
+                if(data.role === 'admin'){
+                    window.location.href = '/admin-welcome.html';
+                } 
+
+                else if(data.role === 'user'){
+                    window.location.href = '/ser.html';
+                }
+                
+            } else {
+                console.error('Login failed:', response.statusText);
+                // Show error message to the user
+            }
+        });
   </script>
 </body>
 </html>
